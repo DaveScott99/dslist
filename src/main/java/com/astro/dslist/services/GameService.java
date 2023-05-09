@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.astro.dslist.dto.GameMinDTO;
 import com.astro.dslist.entities.Game;
 import com.astro.dslist.repositories.GameRepository;
 
@@ -14,9 +15,11 @@ public class GameService {
 	@Autowired
 	private GameRepository gameRepository;
 	
-	public List<Game> findAll() {
+	public List<GameMinDTO> findAll() {
 		List<Game> games = gameRepository.findAll();
-		return games;
+		return games.stream()
+					.map(x -> new GameMinDTO(x))
+					.toList();
 	}
 	
 	
